@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+        /* Adjusting column widths */
+        .id-column {
+            width: 5%;
+        }
+
+        .description-column {
+            width: 25%;
+        }
+
+        .ingredient-column, .instruction-column {
+            width: 20%;
+        }
+
+        .action-column {
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Recipe Management System</a>
+
+    <!-- Toggler/collapsible Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/recipe}">Recipe Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <h1>List Of Recipes</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/recipe/new}" class="btn btn-primary btn-sm mb-3">Add Recipe</a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th class="id-column">ID</th>
+            <th class="description-column">Recipe Title</th>
+            <th class="description-column">Recipe Description</th>
+            <th class="ingredient-column">Ingredients</th>
+            <th class="instruction-column">Instructions</th>
+            <th class="action-column">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recipe: ${recipe}">
+            <td class="id-column" th:text="${recipe.id}"></td>
+            <td class="description-column" th:text="${recipe.title}"></td>
+            <td class="description-column" th:text="${recipe.description}"></td>
+            <td class="ingredient-column" th:text="${recipe.ingredients}"></td>
+            <td class="instruction-column" th:text="${recipe.instructions}"></td>
+            <td class="action-column">
+                <a th:href="@{/recipe/edit/{id}(id=${recipe.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/recipe/delete/{id}(id=${recipe.id})}" class="btn btn-danger">Delete</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
